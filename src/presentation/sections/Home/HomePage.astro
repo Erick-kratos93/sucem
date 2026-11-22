@@ -1,0 +1,80 @@
+---
+import Container from "../../components/Container/Container.astro";
+import Prose from "../../components/Prose/Prose.astro";
+import Section from "../../components/Section/Section.astro";
+import SectionHeading from "../../components/SectionHeading/SectionHeading.astro";
+import VideoCard from "../../components/VideoCard/VideoCard.astro";
+import YouTubeVideo from "../../components/YouTubeVideo/YouTubeVideo.astro";
+import { site } from "../../../config/site";
+import type { HomePageProps } from "./HomePage.types";
+import "./HomePage.styles.css";
+
+const { home, videos } = Astro.props as HomePageProps;
+---
+
+<Section spacing="flush" class="home-hero">
+  <YouTubeVideo
+    youtubeId={home.heroVideoId}
+    title={home.title}
+    autoplay
+    muted
+    loop
+    controls={false}
+    cover
+    loading="eager"
+  />
+</Section>
+
+<Section spacing="flush" class="home-content">
+  <Container>
+    <div class="home-block home-intro">
+      <SectionHeading
+        title={site.name}
+        level={2}
+        align="center"
+        id="conocenos"
+        class="home-intro__title"
+      />
+      <Prose align="center" html={home.intro} />
+    </div>
+
+    <div class="home-block">
+      <SectionHeading title={home.mission.title} level={2} id="mision" />
+      <Prose html={home.mission.body} class="home-copy" />
+    </div>
+
+    <div class="home-block">
+      <SectionHeading title={home.vision.title} level={2} align="right" id="vision" />
+      <Prose align="center" html={home.vision.body} class="home-copy" />
+    </div>
+
+    <div class="home-block">
+      <Prose align="center" html={home.about} class="home-copy" />
+    </div>
+
+    <div class="home-block">
+      <SectionHeading title={home.highlights.title} level={2} align="center" />
+      {home.highlights.paragraphs.map((paragraph, index) => (
+        <Prose
+          align={index === 0 ? "left" : "center"}
+          html={paragraph}
+          class:list={[
+            "home-copy",
+            "home-highlights__paragraph",
+            index === 0 && "home-highlights__list",
+            index > 0 && "home-highlights__paragraph--spaced",
+          ]}
+        />
+      ))}
+    </div>
+
+    <div class="home-block">
+      <SectionHeading title={home.videosTitle} level={2} align="center" id="videos" />
+      <div class="home-videos__grid">
+        {videos.map((video) => (
+          <VideoCard title={video.title} youtubeId={video.youtubeId} />
+        ))}
+      </div>
+    </div>
+  </Container>
+</Section>

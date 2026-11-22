@@ -1,0 +1,16 @@
+---
+import type { ProseProps } from "./Prose.types";
+import "./Prose.styles.css";
+
+const { align = "left", html, class: className } = Astro.props as ProseProps;
+---
+
+<div
+  class:list={[
+    "prose",
+    align === "center" && "prose--center",
+    className,
+  ]}
+>
+  {html ? <Fragment set:html={html} /> : <slot />}
+</div>

@@ -1,0 +1,20 @@
+---
+import YouTubeVideo from "../YouTubeVideo/YouTubeVideo.astro";
+import type { VideoCardProps } from "./VideoCard.types";
+import "./VideoCard.styles.css";
+
+const { title, youtubeId } = Astro.props as VideoCardProps;
+---
+
+<article class="video-card">
+  <YouTubeVideo
+    youtubeId={youtubeId}
+    title={title}
+    autoplay
+    muted
+    loop
+    controls={false}
+    class="video-card__media"
+  />
+  <h3 class="video-card__title">{title}</h3>
+</article>

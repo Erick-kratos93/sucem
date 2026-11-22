@@ -1,0 +1,21 @@
+---
+import { structureIcons } from "./StructureIcons";
+
+interface StructureTabIconProps {
+  id: string;
+}
+
+const { id } = Astro.props as StructureTabIconProps;
+const icon = structureIcons[id];
+---
+
+{icon && (
+  <svg
+    class="structure-tab__icon"
+    viewBox={icon.viewBox}
+    aria-hidden="true"
+    focusable="false"
+  >
+    <path d={icon.path} fill="currentColor"></path>
+  </svg>
+)}

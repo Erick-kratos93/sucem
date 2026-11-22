@@ -1,0 +1,104 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import { institutionLabels } from "../../../config/labels";
+import InstitutionIcon from "./InstitutionIcon.astro";
+
+interface InstitutionCardProps {
+  institution: CollectionEntry<"institutions">;
+  profileInstructor?: CollectionEntry<"instructors">;
+}
+
+const { institution, profileInstructor } = Astro.props as InstitutionCardProps;
+const { name, description, logo, socialLinks, map } = institution.data;
+
+const mapUrl = `https://maps.google.com/maps?q=${encodeURIComponent(map.address)}&t=m&z=${map.zoom ?? 17}&output=embed&iwloc=near`;
+const mapLabel = `${institutionLabels.map} ${name}`;
+const careerHref = profileInstructor
+  ? `/profesores-temachtianimej/#instructor-${profileInstructor.id}`
+  : undefined;
+const careerDialogId = profileInstructor
+  ? `instructor-profile-${profileInstructor.id}`
+  : undefined;
+---
+
+<article class="institution-card" id={`institution-${institution.id}`}>
+  <div class="institution-card__profile">
+    <Image
+      class="institution-card__image"
+      src={logo}
+      alt=""
+      width={300}
+      height={300}
+      loading="lazy"
+    />
+
+    <h3 class="institution-card__title">{name}</h3>
+    <p class="institution-card__description">{description}</p>
+
+    <ul class="institution-card__links">
+      {
+        socialLinks.whatsapp && (
+          <li>
+            <a
+              class="institution-card__link"
+              href={socialLinks.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <InstitutionIcon name="whatsapp" />
+              <span>{institutionLabels.whatsapp}</span>
+            </a>
+          </li>
+        )
+      }
+      {
+        socialLinks.facebook && (
+          <li>
+            <a
+              class="institution-card__link"
+              href={socialLinks.facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <InstitutionIcon name="facebook" />
+              <span>{institutionLabels.facebook}</span>
+            </a>
+          </li>
+        )
+      }
+      {
+        careerHref && (
+          <li>
+            <a
+              class="institution-card__link"
+              href={careerHref}
+              data-instructor-profile-open={careerDialogId}
+            >
+              <InstitutionIcon name="career" />
+              <span>{institutionLabels.career}</span>
+            </a>
+          </li>
+        )
+      }
+    </ul>
+
+    <div
+      class="institution-card__rating"
+      role="img"
+      aria-label={institutionLabels.rating}
+    >
+      {Array.from({ length: 5 }, () => (
+        <InstitutionIcon name="star" />
+      ))}
+    </div>
+  </div>
+
+  <div class="institution-card__map">
+    <iframe
+      title={mapLabel}
+      src={mapUrl}
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+</article>

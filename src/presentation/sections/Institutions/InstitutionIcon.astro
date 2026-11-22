@@ -1,0 +1,23 @@
+---
+import {
+  institutionIcons,
+  type InstitutionIconName,
+} from "./InstitutionIcons";
+
+interface InstitutionIconProps {
+  name: InstitutionIconName;
+  class?: string;
+}
+
+const { name, class: className } = Astro.props as InstitutionIconProps;
+const icon = institutionIcons[name];
+---
+
+<svg
+  class:list={["institution-icon", className]}
+  viewBox={icon.viewBox}
+  aria-hidden="true"
+  focusable="false"
+>
+  <path d={icon.path} fill="currentColor"></path>
+</svg>

@@ -1,0 +1,112 @@
+---
+import type { CollectionEntry } from "astro:content";
+import StructureTabIcon from "./StructureTabIcon.astro";
+import StructureTabPanel from "./StructureTabPanel.astro";
+import "./StructureTabs.styles.css";
+
+interface StructureTabsProps {
+  tabs: CollectionEntry<"structureTabs">[];
+}
+
+const { tabs } = Astro.props as StructureTabsProps;
+const groups = [1, 2, 3]
+  .map((group) =>
+    tabs
+      .filter((tab) => tab.data.group === group)
+      .sort((first, second) => first.data.order - second.data.order),
+  )
+  .filter((group) => group.length > 0);
+---
+
+<div class="structure-tabs">
+  {groups.map((group) => (
+    <div class="structure-tabs__group" data-tabs>
+      <div class="structure-tabs__nav" role="tablist" aria-label="Contenido de SUCEM">
+        {group.map((tab, index) => (
+          <button
+            type="button"
+            role="tab"
+            id={`tab-${tab.id}`}
+            class:list={[
+              "structure-tabs__tab",
+              index === 0 && "structure-tabs__tab--active",
+            ]}
+            aria-selected={index === 0 ? "true" : "false"}
+            aria-controls={`panel-${tab.id}`}
+            tabindex={index === 0 ? 0 : -1}
+            data-tab-target={`panel-${tab.id}`}
+          >
+            <StructureTabIcon id={tab.id.replace(/-/g, "")} />
+            <span>{tab.data.title}</span>
+          </button>
+        ))}
+      </div>
+
+      <div class="structure-tabs__panels">
+        {group.map((tab, index) => (
+          <div
+            class:list={[
+              "structure-tabs__panel",
+              index === 0 && "structure-tabs__panel--active",
+            ]}
+            id={`panel-${tab.id}`}
+            role="tabpanel"
+            aria-labelledby={`tab-${tab.id}`}
+            tabindex="0"
+            hidden={index !== 0}
+          >
+            <StructureTabPanel tab={tab} />
+          </div>
+        ))}
+      </div>
+    </div>
+  ))}
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-tabs]").forEach((group) => {
+    const tabs = Array.from(
+      group.querySelectorAll<HTMLButtonElement>('[role="tab"]'),
+    );
+
+    const activate = (activeTab: HTMLButtonElement) => {
+      const targetId = activeTab.dataset.tabTarget;
+      if (!targetId) return;
+
+      tabs.forEach((tab) => {
+        const isActive = tab === activeTab;
+        tab.classList.toggle("structure-tabs__tab--active", isActive);
+        tab.setAttribute("aria-selected", String(isActive));
+        tab.tabIndex = isActive ? 0 : -1;
+
+        const panel = group.querySelector<HTMLElement>(
+          `#${tab.dataset.tabTarget}`,
+        );
+        if (panel) {
+          panel.hidden = !isActive;
+          panel.classList.toggle("structure-tabs__panel--active", isActive);
+        }
+      });
+    };
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener("click", () => activate(tab));
+
+      tab.addEventListener("keydown", (event) => {
+        const direction =
+          event.key === "ArrowRight" || event.key === "ArrowDown"
+            ? 1
+            : event.key === "ArrowLeft" || event.key === "ArrowUp"
+              ? -1
+              : 0;
+
+        if (direction === 0) return;
+
+        event.preventDefault();
+        const nextIndex = (index + direction + tabs.length) % tabs.length;
+        tabs[nextIndex].focus();
+        activate(tabs[nextIndex]);
+      });
+    });
+  });
+</script>

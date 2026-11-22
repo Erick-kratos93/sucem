@@ -1,0 +1,96 @@
+---
+import type { InstructorProfilesProps } from "./InstructorProfile.types";
+import InstructorProfileDialog from "./InstructorProfileDialog.astro";
+import "./InstructorProfiles.styles.css";
+
+const { instructors } = Astro.props as InstructorProfilesProps;
+const profiles = instructors.filter((instructor) => instructor.data.profile);
+---
+
+<div class="instructor-profiles" data-instructor-profiles>
+  {profiles.map((instructor) => <InstructorProfileDialog instructor={instructor} />)}
+</div>
+
+<script>
+  const profileIdPrefix = "instructor-profile-";
+
+  const getHash = () => {
+    try {
+      return decodeURIComponent(window.location.hash.slice(1));
+    } catch {
+      return window.location.hash.slice(1);
+    }
+  };
+
+  const getDialog = (id: string | undefined) => {
+    if (!id) return null;
+    const element = document.getElementById(id);
+    return element instanceof HTMLDialogElement ? element : null;
+  };
+
+  const openDialog = (dialog: HTMLDialogElement) => {
+    if (dialog.open) return;
+    dialog.showModal();
+    document.body.classList.add("has-instructor-profile-open");
+
+    const hash = `#${dialog.id}`;
+    if (window.location.hash !== hash) {
+      window.history.replaceState(null, "", hash);
+    }
+  };
+
+  document.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element)) return;
+
+    const trigger = event.target.closest<HTMLElement>(
+      "[data-instructor-profile-open]",
+    );
+    if (trigger) {
+      const dialog = getDialog(trigger.dataset.instructorProfileOpen);
+      if (dialog) {
+        event.preventDefault();
+        openDialog(dialog);
+      }
+      return;
+    }
+
+    const closeButton = event.target.closest<HTMLElement>(
+      "[data-instructor-profile-close]",
+    );
+    if (closeButton) {
+      const dialog = closeButton.closest("dialog");
+      if (dialog instanceof HTMLDialogElement) dialog.close();
+    }
+  });
+
+  document
+    .querySelectorAll<HTMLDialogElement>("[data-instructor-profile-dialog]")
+    .forEach((dialog) => {
+      dialog.addEventListener("click", (event) => {
+        if (event.target === dialog) dialog.close();
+      });
+
+      dialog.addEventListener("close", () => {
+        document.body.classList.remove("has-instructor-profile-open");
+
+        if (window.location.hash === `#${dialog.id}`) {
+          window.history.replaceState(
+            null,
+            "",
+            `${window.location.pathname}${window.location.search}`,
+          );
+        }
+      });
+    });
+
+  const openFromHash = () => {
+    const hash = getHash();
+    if (!hash.startsWith(profileIdPrefix)) return;
+
+    const dialog = getDialog(hash);
+    if (dialog) openDialog(dialog);
+  };
+
+  window.addEventListener("hashchange", openFromHash);
+  openFromHash();
+</script>

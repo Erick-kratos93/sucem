@@ -1,0 +1,18 @@
+---
+import type { ContainerProps } from "./Container.types";
+import "./Container.styles.css";
+
+const {
+  as: Tag = "div",
+  size = "default",
+  id,
+  class: className,
+} = Astro.props as ContainerProps;
+---
+
+<Tag
+  id={id}
+  class:list={["container", size === "wide" && "container--wide", className]}
+>
+  <slot />
+</Tag>

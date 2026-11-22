@@ -1,0 +1,25 @@
+{
+  "name": "Erick Pablo Alfonso",
+  "register": "43013/01/02/01",
+  "grade": "Guerrero Jaguar(Ocēlōpilli)/Negra 1",
+  "active": true,
+  "order": 11,
+  "profile": {
+    "image": "../../assets/images/instructors/erick-pablo-alfonso.jpg",
+    "biography": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.",
+    "gallery": [
+      {
+        "name": "Gallery Item Name",
+        "video": "https://www.youtube.com/watch?v=kB4U67tiQLA"
+      },
+      {
+        "name": "Gallery Item Name",
+        "video": "https://www.youtube.com/watch?v=kB4U67tiQLA"
+      },
+      {
+        "name": "Gallery Item Name",
+        "video": "https://www.youtube.com/watch?v=kB4U67tiQLA"
+      }
+    ]
+  }
+}

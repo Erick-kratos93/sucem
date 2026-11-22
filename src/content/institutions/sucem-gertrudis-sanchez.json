@@ -1,0 +1,13 @@
+{
+  "name": "SUCEM Gertrudis Sanchez",
+  "group": "CDMX",
+  "description": "Temachtiani: Joel Brandon Jiménez Hernández Guerrero Águila C.N. 4 Temachtiani: Joel Jiménez Sánchez Guerrero Águila C.N. 6",
+  "logo": "../../assets/images/institutions/sucem-gertrudis-sanchez.jpeg",
+  "order": 3,
+  "popup": "joel-jimenez-sanchez",
+  "socialLinks": {},
+  "map": {
+    "address": "Calle Nte 86, Gertrudis Sánchez II Secc, Gustavo A. Madero, 07839 Ciudad de México, CDMX",
+    "zoom": 17
+  }
+}

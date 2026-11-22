@@ -1,0 +1,32 @@
+.prose {
+  line-height: var(--line-height-body);
+}
+
+.prose--center {
+  text-align: center;
+}
+
+.prose h2,
+.prose h3,
+.prose h4 {
+  margin-top: var(--space-6);
+  margin-bottom: var(--space-4);
+}
+
+.prose h2:first-child,
+.prose h3:first-child,
+.prose h4:first-child {
+  margin-top: 0;
+}
+
+.prose p:last-child,
+.prose ul:last-child,
+.prose ol:last-child {
+  margin-bottom: 0;
+}
+
+.prose ul,
+.prose ol {
+  margin-bottom: var(--space-4);
+  padding-left: var(--space-5);
+}

@@ -1,0 +1,25 @@
+---
+import type { SectionHeadingProps } from "./SectionHeading.types";
+import "./SectionHeading.styles.css";
+
+const {
+  title,
+  level = 2,
+  align = "left",
+  id,
+  class: className,
+} = Astro.props as SectionHeadingProps;
+
+const Tag = `h${level}` as "h2" | "h3" | "h4";
+---
+
+<Tag
+  id={id}
+  class:list={[
+    "section-heading",
+    align !== "left" && `section-heading--${align}`,
+    className,
+  ]}
+>
+  {title}
+</Tag>

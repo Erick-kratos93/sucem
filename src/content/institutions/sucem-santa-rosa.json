@@ -1,0 +1,13 @@
+{
+  "name": "SUCEM Santa Rosa",
+  "group": "Estado de México",
+  "description": "Temachtiani: Jesús Días Gaona Tlatoani C.N. 8",
+  "logo": "../../assets/images/institutions/sucem-santa-rosa.png",
+  "order": 6,
+  "popup": "jesus-diaz-gaona",
+  "socialLinks": {},
+  "map": {
+    "address": "Granjas el arenal, Nueva Sta Rosa, 56310 Méx.",
+    "zoom": 17
+  }
+}

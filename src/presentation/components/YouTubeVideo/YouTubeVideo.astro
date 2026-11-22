@@ -1,0 +1,44 @@
+---
+import type { YouTubeVideoProps } from "./YouTubeVideo.types";
+import "./YouTubeVideo.styles.css";
+
+const {
+  youtubeId,
+  title,
+  autoplay = false,
+  muted = false,
+  controls = true,
+  loop = false,
+  cover = false,
+  loading = "lazy",
+  class: className,
+} = Astro.props as YouTubeVideoProps;
+
+const parameters = new URLSearchParams({
+  autoplay: autoplay ? "1" : "0",
+  mute: muted ? "1" : "0",
+  controls: controls ? "1" : "0",
+  loop: loop ? "1" : "0",
+  playlist: loop ? youtubeId : "",
+  rel: "0",
+});
+
+const src = `https://www.youtube-nocookie.com/embed/${youtubeId}?${parameters.toString()}`;
+---
+
+<div
+  class:list={[
+    "youtube-video",
+    cover && "youtube-video--cover",
+    className,
+  ]}
+>
+  <iframe
+    src={src}
+    title={title}
+    loading={loading}
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen
+  ></iframe>
+</div>

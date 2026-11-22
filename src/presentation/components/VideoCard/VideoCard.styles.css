@@ -1,0 +1,15 @@
+.video-card {
+  margin: 0;
+}
+
+.video-card__media {
+  height: 215px;
+}
+
+.video-card__title {
+  margin: var(--space-4) 0 calc(var(--space-2) - var(--space-px) * 2);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-heading);
+  text-align: center;
+}

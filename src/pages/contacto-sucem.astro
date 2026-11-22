@@ -1,0 +1,15 @@
+---
+import { getEntry } from "astro:content";
+import BaseLayout from "../presentation/layouts/BaseLayout.astro";
+import ContactPage from "../presentation/sections/Contact/ContactPage.astro";
+
+const page = await getEntry("pages", "contacto-sucem");
+
+if (!page) {
+  throw new Error("No se encontró el contenido de Contacto de SUCEM.");
+}
+---
+
+<BaseLayout title={page.data.title} description={page.data.description}>
+  <ContactPage page={page} />
+</BaseLayout>

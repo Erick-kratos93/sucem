@@ -1,0 +1,17 @@
+---
+import { getCollection, getEntry } from "astro:content";
+import BaseLayout from "../presentation/layouts/BaseLayout.astro";
+import StructurePage from "../presentation/sections/Structure/StructurePage.astro";
+
+const page = await getEntry("pages", "estructura-sucem");
+
+if (!page) {
+  throw new Error("No se encontró el contenido de Estructura de SUCEM.");
+}
+
+const tabs = await getCollection("structureTabs");
+---
+
+<BaseLayout title={page.data.title} description={page.data.description}>
+  <StructurePage page={page} tabs={tabs} />
+</BaseLayout>

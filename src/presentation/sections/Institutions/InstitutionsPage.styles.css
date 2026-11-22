@@ -1,0 +1,160 @@
+.institutions-content {
+  position: relative;
+  isolation: isolate;
+}
+
+.institutions-content__background {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.institutions-content__background-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.institutions-content__background::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background-color: var(--color-overlay);
+}
+
+.institutions-group {
+  padding-block: var(--space-9);
+}
+
+.institutions-group + .institutions-group {
+  padding-top: 0;
+}
+
+.institutions-group__title {
+  margin: 0;
+  font-size: var(--font-size-3xl);
+  color: var(--color-surface);
+  text-align: center;
+}
+
+.institutions-group__divider {
+  width: 50%;
+  height: var(--space-2);
+  max-height: 3px;
+  margin: var(--space-3) auto var(--space-4);
+  background-color: var(--color-surface);
+}
+
+.institutions-group__cards {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.institution-card {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding: var(--space-4);
+  background-color: rgb(0 0 0 / 50%);
+}
+
+.institution-card__profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-4);
+  color: var(--color-surface);
+  text-align: center;
+}
+
+.institution-card__image {
+  width: 30%;
+  max-width: 300px;
+  height: auto;
+  margin-bottom: var(--space-3);
+  object-fit: contain;
+}
+
+.institution-card__title {
+  margin: 0;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: inherit;
+}
+
+.institution-card__description {
+  margin: 0;
+  color: inherit;
+  line-height: var(--line-height-body);
+}
+
+.institution-card__links {
+  display: grid;
+  gap: var(--space-1);
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.institution-card__link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: inherit;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+}
+
+.institution-card__link:hover,
+.institution-card__link:focus-visible {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.institution-icon {
+  width: 35px;
+  height: 35px;
+  flex-shrink: 0;
+}
+
+.institution-card__rating {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  color: var(--color-surface);
+}
+
+.institution-card__map {
+  min-width: 0;
+  padding: var(--space-4);
+}
+
+.institution-card__map iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  border: 0;
+}
+
+@media (max-width: 767px) {
+  .institutions-group {
+    padding-block: var(--space-8);
+  }
+
+  .institution-card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .institution-card__image {
+    width: 60%;
+  }
+
+  .institution-card__map {
+    padding-top: 0;
+  }
+
+  .institution-card__map iframe {
+    min-height: 240px;
+  }
+}

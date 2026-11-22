@@ -1,0 +1,13 @@
+{
+  "name": "SUCEM DIF CDC Álvaro Obregón",
+  "group": "CDMX",
+  "description": "Temachtiani: Joel Brandon Jiménez Hernández Guerrero Águila C.N. 4",
+  "logo": "../../assets/images/institutions/sucem-dif.jpg",
+  "order": 2,
+  "popup": "joel-brandon-jimenez-hernandez",
+  "socialLinks": {},
+  "map": {
+    "address": "Volcán Acatenango 74, Amp la Providencia, Gustavo A. Madero, 07560 Ciudad de México, CDMX",
+    "zoom": 17
+  }
+}

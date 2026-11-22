@@ -1,0 +1,11 @@
+{
+  "title": "Contacto SUCEM",
+  "description": "Contacta a SUCEM y únete a nuestra familia.",
+  "heroTitle": "¡Únete a nuestra familia!",
+  "heroSubtitle": "¡Estás a un paso de ser parte de nuestra familia!",
+  "heroImage": "../../assets/images/heroes/portada-contacto.jpg",
+  "intro": {
+    "title": "¡Contáctanos!",
+    "image": "../../assets/images/logo-sucem.png"
+  }
+}

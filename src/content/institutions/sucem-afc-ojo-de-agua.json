@@ -1,0 +1,13 @@
+{
+  "name": "SUCEM AFC Ojo de agua",
+  "group": "Estado de México",
+  "description": "Temachtiani: Antonio Gonzalez Herrera Guerrero Jaguar C.N. 1",
+  "logo": "../../assets/images/institutions/sucem-afc-ojo-de-agua.png",
+  "order": 9,
+  "popup": "antonio-gonzalez-herrera",
+  "socialLinks": {},
+  "map": {
+    "address": "Granjas el arenal, Nueva Sta Rosa, 56310 Méx.",
+    "zoom": 17
+  }
+}

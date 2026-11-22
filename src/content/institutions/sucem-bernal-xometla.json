@@ -1,0 +1,13 @@
+{
+  "name": "SUCEM Bernal Xometla",
+  "group": "Estado de México",
+  "description": "Temachtiani: Jesús Carlos Bernal Soria Guerrero Jaguar C.N. 1",
+  "logo": "../../assets/images/institutions/sucem-bernal.jpg",
+  "order": 8,
+  "popup": "jesus-carlos-bernal-soria",
+  "socialLinks": {},
+  "map": {
+    "address": "Granjas el arenal, Nueva Sta Rosa, 56310 Méx.",
+    "zoom": 17
+  }
+}

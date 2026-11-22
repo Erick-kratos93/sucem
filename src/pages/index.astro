@@ -1,0 +1,27 @@
+---
+import { getCollection, getEntry } from "astro:content";
+import BaseLayout from "../presentation/layouts/BaseLayout.astro";
+import HomePage from "../presentation/sections/Home/HomePage.astro";
+
+const homeEntry = await getEntry("home", "inicio");
+
+if (!homeEntry) {
+  throw new Error("No se encontró el contenido de Inicio.");
+}
+
+const videos = await getCollection("videos");
+videos.sort((first, second) => first.data.order - second.data.order);
+---
+
+<BaseLayout
+  title={homeEntry.data.title}
+  description={homeEntry.data.description}
+>
+  <HomePage
+    home={homeEntry.data}
+    videos={videos.map((video) => ({
+      title: video.data.title,
+      youtubeId: video.data.youtubeId,
+    }))}
+  />
+</BaseLayout>

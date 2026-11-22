@@ -1,0 +1,105 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import Container from "../../components/Container/Container.astro";
+import InstructorProfiles from "../../components/InstructorProfile/InstructorProfiles.astro";
+import PageHero from "../../components/PageHero/PageHero.astro";
+import InstitutionCard from "./InstitutionCard.astro";
+import type {
+  InstitutionGroup,
+  InstitutionsPageProps,
+} from "./InstitutionsPage.types";
+import "./InstitutionsPage.styles.css";
+
+const { page, institutions, instructors } = Astro.props as InstitutionsPageProps;
+const { heroTitle, heroSubtitle, heroImage, background } = page.data;
+
+const instructorsById = new Map(
+  instructors.map((instructor) => [instructor.id, instructor]),
+);
+
+const sortedInstitutions = [...institutions].sort(
+  (first, second) => first.data.order - second.data.order,
+);
+
+const groupIds: Record<string, string> = {
+  CDMX: "cdmx",
+  "Estado de México": "edomex",
+};
+
+const groups = sortedInstitutions.reduce<InstitutionGroup[]>(
+  (result, institution) => {
+    const label = institution.data.group;
+    let group = result.find((candidate) => candidate.label === label);
+
+    if (!group) {
+      group = {
+        id: groupIds[label] ?? label.toLowerCase(),
+        label,
+        institutions: [],
+      };
+      result.push(group);
+    }
+
+    group.institutions.push(institution);
+    return result;
+  },
+  [],
+);
+---
+
+<PageHero
+  title={heroTitle}
+  subtitle={heroSubtitle}
+  image={heroImage}
+  variant="center-large"
+/>
+
+<section class="institutions-content">
+  {
+    background && (
+      <div class="institutions-content__background" aria-hidden="true">
+        <Image
+          class="institutions-content__background-image"
+          src={background}
+          alt=""
+          widths={[960, 1440, 1920]}
+          sizes="100vw"
+          loading="lazy"
+        />
+      </div>
+    )
+  }
+
+  {
+    groups.map((group) => (
+      <section
+        class="institutions-group"
+        id={group.id}
+        aria-labelledby={`${group.id}-title`}
+      >
+        <Container>
+          <h2 class="institutions-group__title" id={`${group.id}-title`}>
+            {group.label}
+          </h2>
+          <div class="institutions-group__divider" aria-hidden="true"></div>
+
+          <div class="institutions-group__cards">
+            {group.institutions.map((institution) => (
+              <InstitutionCard
+                institution={institution}
+                profileInstructor={
+                  institution.data.popup
+                    ? instructorsById.get(institution.data.popup)
+                    : undefined
+                }
+              />
+            ))}
+          </div>
+        </Container>
+      </section>
+    ))
+  }
+</section>
+
+<InstructorProfiles instructors={instructors} />

@@ -1,0 +1,25 @@
+{
+  "name": "Jesús Díaz Gaona",
+  "register": "43013/#/#/#",
+  "grade": "Tlatoani(Huēyi tlahtoāni)/Negra 8",
+  "active": true,
+  "order": 1,
+  "profile": {
+    "image": "../../assets/images/logo-sucem.png",
+    "biography": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.",
+    "gallery": [
+      {
+        "name": "Gallery Item Name",
+        "video": "https://www.youtube.com/watch?v=kB4U67tiQLA"
+      },
+      {
+        "name": "Gallery Item Name",
+        "video": "https://www.youtube.com/watch?v=kB4U67tiQLA"
+      },
+      {
+        "name": "Gallery Item Name",
+        "video": "https://www.youtube.com/watch?v=kB4U67tiQLA"
+      }
+    ]
+  }
+}

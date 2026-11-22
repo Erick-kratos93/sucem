@@ -1,0 +1,47 @@
+---
+import { Image } from "astro:assets";
+import Container from "../../components/Container/Container.astro";
+import InstructorProfiles from "../../components/InstructorProfile/InstructorProfiles.astro";
+import PageHero from "../../components/PageHero/PageHero.astro";
+import InstructorTable from "./InstructorTable.astro";
+import type { InstructorsPageProps } from "./InstructorsPage.types";
+import "./InstructorsPage.styles.css";
+
+const { page, instructors } = Astro.props as InstructorsPageProps;
+const { heroTitle, heroSubtitle, heroImage, intro } = page.data;
+---
+
+<PageHero
+  title={heroTitle}
+  subtitle={heroSubtitle}
+  image={heroImage}
+  variant="center-medium"
+/>
+
+{
+  intro && (
+    <section class="instructors-intro">
+      <Container>
+        <div class="instructors-intro__content">
+          <Image
+            class="instructors-intro__image"
+            src={intro.image}
+            alt=""
+            width={150}
+            height={58}
+            loading="lazy"
+          />
+          <h2 class="instructors-intro__title">{intro.title}</h2>
+        </div>
+      </Container>
+    </section>
+  )
+}
+
+<section class="instructors-content">
+  <Container>
+    <InstructorTable instructors={instructors} />
+  </Container>
+</section>
+
+<InstructorProfiles instructors={instructors} />

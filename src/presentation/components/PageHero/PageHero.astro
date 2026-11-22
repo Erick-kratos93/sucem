@@ -1,0 +1,27 @@
+---
+import { Image } from "astro:assets";
+import type { PageHeroProps } from "./PageHero.types";
+import "./PageHero.styles.css";
+
+const { title, subtitle, image, variant = "default" } = Astro.props as PageHeroProps;
+---
+
+<section
+  class:list={["page-hero", variant !== "default" && `page-hero--${variant}`]}
+>
+  <Image
+    class="page-hero__image"
+    src={image}
+    alt=""
+    widths={[640, 960, 1440, 1920]}
+    sizes="100vw"
+    loading="eager"
+    fetchpriority="high"
+  />
+  <div class="page-hero__overlay" aria-hidden="true"></div>
+
+  <div class="page-hero__content">
+    <h1 class="page-hero__title">{title}</h1>
+    <p class="page-hero__subtitle">{subtitle}</p>
+  </div>
+</section>

@@ -1,0 +1,79 @@
+---
+import { Image } from "astro:assets";
+import { getYouTubeVideoId } from "../../../application/video/GetYouTubeVideoId";
+import { instructorProfileLabels } from "../../../config/labels";
+import YouTubeVideo from "../YouTubeVideo/YouTubeVideo.astro";
+import type { InstructorProfileDialogProps } from "./InstructorProfile.types";
+
+const { instructor } = Astro.props as InstructorProfileDialogProps;
+const { name, profile } = instructor.data;
+
+if (!profile) {
+  throw new Error(`El instructor ${name} no tiene perfil.`);
+}
+
+const dialogId = `instructor-profile-${instructor.id}`;
+const titleId = `${dialogId}-title`;
+const galleryTitleId = `${dialogId}-gallery-title`;
+const gallery = profile.gallery.flatMap((item, index) => {
+  const youtubeId = getYouTubeVideoId(item.video);
+  return youtubeId ? [{ ...item, youtubeId, index }] : [];
+});
+---
+
+<dialog
+  class="instructor-profile"
+  id={dialogId}
+  aria-labelledby={titleId}
+  data-instructor-profile-dialog
+>
+  <div class="instructor-profile__panel">
+    <button
+      class="instructor-profile__close"
+      type="button"
+      aria-label={`${instructorProfileLabels.close} ${name}`}
+      data-instructor-profile-close
+    >
+      <span aria-hidden="true">×</span>
+    </button>
+
+    <div class="instructor-profile__summary">
+      <Image
+        class="instructor-profile__image"
+        src={profile.image}
+        alt=""
+        width={787}
+        height={354}
+        loading="lazy"
+      />
+      <div class="instructor-profile__details">
+        <h2 class="instructor-profile__title" id={titleId}>
+          {instructorProfileLabels.titlePrefix} {name}
+        </h2>
+        <p class="instructor-profile__biography">{profile.biography}</p>
+      </div>
+    </div>
+
+    <h3 class="visually-hidden" id={galleryTitleId}>
+      {instructorProfileLabels.galleryTitle}
+    </h3>
+    <ul
+      class="instructor-profile__gallery"
+      aria-labelledby={galleryTitleId}
+    >
+      {
+        gallery.map((item) => (
+          <li class="instructor-profile__gallery-item">
+            <figure>
+              <YouTubeVideo
+                youtubeId={item.youtubeId}
+                title={`${instructorProfileLabels.video} ${name} ${item.index + 1}`}
+              />
+              <figcaption class="visually-hidden">{item.name}</figcaption>
+            </figure>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</dialog>

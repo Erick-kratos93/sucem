@@ -1,0 +1,68 @@
+---
+import type { HeaderNavProps } from "./Header.types";
+
+const { items, variant } = Astro.props;
+
+const currentPath = Astro.url.pathname.replace(/\/+$/, "") || "/";
+
+const isCurrent = (href: string): boolean => {
+  if (href.includes("#")) {
+    return false;
+  }
+
+  const path = href.replace(/\/+$/, "") || "/";
+
+  return path === currentPath;
+};
+---
+
+<ul class:list={["header-nav__list", `header-nav__list--${variant}`]}>
+  {
+    items.map((item) => (
+      <li
+        class:list={[
+          "header-nav__item",
+          item.children ? "header-nav__item--has-children" : "",
+        ]}
+      >
+        <a
+          class="header-nav__link"
+          href={item.href}
+          aria-current={isCurrent(item.href) ? "page" : undefined}
+        >
+          {item.label}
+
+          {item.children && (
+            <svg
+              class="header-nav__arrow"
+              width="10"
+              height="10"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z" />
+            </svg>
+          )}
+        </a>
+
+        {item.children && (
+          <ul class="header-nav__submenu">
+            {item.children.map((child) => (
+              <li class="header-nav__item">
+                <a
+                  class="header-nav__link"
+                  href={child.href}
+                  aria-current={isCurrent(child.href) ? "page" : undefined}
+                >
+                  {child.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </li>
+    ))
+  }
+</ul>

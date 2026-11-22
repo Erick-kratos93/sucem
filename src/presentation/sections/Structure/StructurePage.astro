@@ -1,0 +1,22 @@
+---
+import Container from "../../components/Container/Container.astro";
+import PageHero from "../../components/PageHero/PageHero.astro";
+import StructureTabs from "./StructureTabs.astro";
+import type { StructurePageProps } from "./StructurePage.types";
+import "./StructurePage.styles.css";
+
+const { page, tabs } = Astro.props as StructurePageProps;
+const { heroTitle, heroSubtitle, heroImage } = page.data;
+---
+
+<PageHero
+  title={heroTitle}
+  subtitle={heroSubtitle}
+  image={heroImage}
+/>
+
+<section class="structure-content">
+  <Container>
+    <StructureTabs tabs={tabs} />
+  </Container>
+</section>

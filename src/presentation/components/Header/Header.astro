@@ -1,0 +1,61 @@
+---
+import { Image } from "astro:assets";
+import logo from "../../../assets/images/logo-sucem.png";
+import { site } from "../../../config/site";
+import HeaderNav from "./HeaderNav.astro";
+import "./Header.styles.css";
+---
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-header__brand" href="/" aria-label={`${site.name}, inicio`}>
+      <Image
+        src={logo}
+        alt={site.name}
+        widths={[120, 240]}
+        sizes="120px"
+        loading="eager"
+      />
+    </a>
+
+    <nav class="site-header__nav" aria-label="Navegación principal">
+      <HeaderNav items={site.navigation} variant="desktop" />
+    </nav>
+
+    <details class="site-header__mobile-menu">
+      <summary class="site-header__toggle" aria-label="Menú">
+        <span class="site-header__toggle-icon" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </summary>
+
+      <div class="site-header__drawer">
+        <nav aria-label="Navegación principal móvil">
+          <HeaderNav items={site.navigation} variant="mobile" />
+        </nav>
+      </div>
+    </details>
+  </div>
+</header>
+
+<script>
+  const mobileMenu = document.querySelector<HTMLDetailsElement>(
+    ".site-header__mobile-menu",
+  );
+
+  mobileMenu?.addEventListener("click", (event) => {
+    const target = event.target;
+
+    if (target instanceof Element && target.closest("a")) {
+      mobileMenu.open = false;
+    }
+  });
+
+  mobileMenu?.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      mobileMenu.open = false;
+    }
+  });
+</script>

@@ -1,0 +1,236 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { instructorLabels } from "../../../config/labels";
+import "./InstructorTable.styles.css";
+
+interface InstructorTableProps {
+  instructors: CollectionEntry<"instructors">[];
+}
+
+const { instructors } = Astro.props as InstructorTableProps;
+const pageSize = 10;
+
+const rows = [...instructors].sort(
+  (first, second) => first.data.order - second.data.order,
+);
+---
+
+<div class="instructor-table" data-instructor-table>
+  <div class="instructor-table__search">
+    <label class="visually-hidden" for="instructor-search">
+      {instructorLabels.searchLabel}
+    </label>
+    <input
+      id="instructor-search"
+      class="instructor-table__input"
+      type="search"
+      placeholder={instructorLabels.searchPlaceholder}
+      autocomplete="off"
+      data-instructor-search
+    />
+  </div>
+
+  <div class="instructor-table__scroll">
+    <table class="instructor-table__content">
+      <thead>
+        <tr>
+          {instructorLabels.headers.map((header) => <th scope="col">{header}</th>)}
+        </tr>
+      </thead>
+      <tbody>
+        {
+          rows.map((instructor, index) => {
+            const { name, register, grade, active } = instructor.data;
+            const status = active
+              ? instructorLabels.active
+              : instructorLabels.inactive;
+            const searchText = [name, register, grade, status].join(" ");
+            const profileTarget = instructor.data.profile
+              ? `instructor-profile-${instructor.id}`
+              : undefined;
+
+            return (
+              <tr
+                id={`instructor-${instructor.id}`}
+                data-instructor-row
+                data-instructor-profile={profileTarget}
+                data-search-text={searchText}
+                hidden={index >= pageSize}
+              >
+                <td>
+                  {profileTarget ? (
+                    <button
+                      class="instructor-table__profile-link"
+                      type="button"
+                      aria-label={`${instructorLabels.viewProfile} ${name}`}
+                      data-instructor-profile-open={profileTarget}
+                    >
+                      {name}
+                    </button>
+                  ) : (
+                    name
+                  )}
+                </td>
+                <td>{register}</td>
+                <td>{grade}</td>
+                <td>{status}</td>
+              </tr>
+            );
+          })
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <p class="instructor-table__empty" data-instructor-empty hidden>
+    {instructorLabels.empty}
+  </p>
+
+  <div class="instructor-table__footer">
+    <p class="instructor-table__status" aria-live="polite" data-instructor-status>
+      <span data-instructor-count>{Math.min(rows.length, pageSize)}</span>
+      <span> / {rows.length} {instructorLabels.status}</span>
+    </p>
+
+    <div class="instructor-table__pagination">
+      <button type="button" data-instructor-previous disabled>
+        {instructorLabels.previous}
+      </button>
+      <span data-instructor-page>1</span>
+      <button type="button" data-instructor-next>
+        {instructorLabels.next}
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const pageSize = 10;
+  const table = document.querySelector<HTMLElement>("[data-instructor-table]");
+
+  if (table) {
+    const searchInput = table.querySelector<HTMLInputElement>(
+      "[data-instructor-search]",
+    );
+    const rows = Array.from(
+      table.querySelectorAll<HTMLTableRowElement>("[data-instructor-row]"),
+    );
+    const emptyMessage = table.querySelector<HTMLElement>(
+      "[data-instructor-empty]",
+    );
+    const count = table.querySelector<HTMLElement>("[data-instructor-count]");
+    const pageIndicator = table.querySelector<HTMLElement>(
+      "[data-instructor-page]",
+    );
+    const previousButton = table.querySelector<HTMLButtonElement>(
+      "[data-instructor-previous]",
+    );
+    const nextButton = table.querySelector<HTMLButtonElement>(
+      "[data-instructor-next]",
+    );
+
+    if (
+      searchInput &&
+      emptyMessage &&
+      count &&
+      pageIndicator &&
+      previousButton &&
+      nextButton
+    ) {
+      let currentPage = 1;
+
+      const normalize = (value: string) =>
+        value
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .toLocaleLowerCase("es");
+
+      const update = () => {
+        const query = normalize(searchInput.value.trim());
+        const filteredRows = rows.filter((row) =>
+          normalize(row.dataset.searchText ?? "").includes(query),
+        );
+        const pageCount = Math.max(1, Math.ceil(filteredRows.length / pageSize));
+        currentPage = Math.min(currentPage, pageCount);
+
+        const start = (currentPage - 1) * pageSize;
+        const visibleRows = filteredRows.slice(start, start + pageSize);
+
+        rows.forEach((row) => {
+          row.hidden = !visibleRows.includes(row);
+        });
+
+        emptyMessage.hidden = filteredRows.length > 0;
+        count.textContent = String(filteredRows.length);
+        pageIndicator.textContent = `${currentPage} / ${pageCount}`;
+        previousButton.disabled = currentPage === 1;
+        nextButton.disabled = currentPage === pageCount;
+      };
+
+      searchInput.addEventListener("input", () => {
+        currentPage = 1;
+        update();
+      });
+
+      previousButton.addEventListener("click", () => {
+        if (currentPage > 1) {
+          currentPage -= 1;
+          update();
+        }
+      });
+
+      nextButton.addEventListener("click", () => {
+        const pageCount = Math.max(
+          1,
+          Math.ceil(
+            rows.filter((row) => {
+              const query = normalize(searchInput.value.trim());
+              return normalize(row.dataset.searchText ?? "").includes(query);
+            }).length / pageSize,
+          ),
+        );
+
+        if (currentPage < pageCount) {
+          currentPage += 1;
+          update();
+        }
+      });
+
+      const getDialog = (id: string | undefined) => {
+        if (!id) return null;
+        const element = document.getElementById(id);
+        return element instanceof HTMLDialogElement ? element : null;
+      };
+
+      const openHashTarget = () => {
+        let hash = window.location.hash.slice(1);
+
+        try {
+          hash = decodeURIComponent(hash);
+        } catch {}
+
+        if (
+          !hash.startsWith("instructor-") ||
+          hash.startsWith("instructor-profile-")
+        ) {
+          return;
+        }
+
+        const targetRow = document.getElementById(hash);
+        if (!(targetRow instanceof HTMLTableRowElement)) return;
+
+        searchInput.value = "";
+        currentPage = Math.floor(rows.indexOf(targetRow) / pageSize) + 1;
+        update();
+        targetRow.scrollIntoView({ block: "center", behavior: "smooth" });
+
+        const profileDialog = getDialog(targetRow.dataset.instructorProfile);
+        if (profileDialog && !profileDialog.open) profileDialog.showModal();
+      };
+
+      update();
+      window.addEventListener("hashchange", openHashTarget);
+      openHashTarget();
+    }
+  }
+</script>

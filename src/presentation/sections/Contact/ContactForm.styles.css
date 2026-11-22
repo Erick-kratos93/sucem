@@ -1,0 +1,41 @@
+.contact-form__field {
+  margin: 0 0 var(--space-4);
+}
+
+.contact-form__field label {
+  display: block;
+  margin-bottom: var(--space-1);
+}
+
+.contact-form__field input,
+.contact-form__field textarea {
+  width: 100%;
+  max-width: 100%;
+  padding: var(--space-1) var(--space-2);
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+
+.contact-form__field textarea {
+  resize: vertical;
+}
+
+.contact-form__submit {
+  padding: var(--space-2) var(--space-4);
+  color: var(--color-surface);
+  background-color: var(--color-primary);
+  border: 0;
+  cursor: pointer;
+  transition: background-color var(--transition-base);
+}
+
+.contact-form__submit:hover,
+.contact-form__submit:focus-visible {
+  background-color: var(--color-primary-hover);
+}
+
+.contact-form__status {
+  margin: var(--space-2) 0 0;
+  color: var(--color-primary-dark);
+}

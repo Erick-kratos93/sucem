@@ -1,0 +1,48 @@
+.section {
+  padding-block: var(--space-8);
+}
+
+.section--compact {
+  padding-block: var(--space-5);
+}
+
+.section--flush {
+  padding-block: 0;
+}
+
+.section--surface {
+  background-color: var(--color-surface);
+}
+
+.section--alt {
+  background-color: var(--color-surface-alt);
+}
+
+.section--primary {
+  color: var(--color-surface);
+  background-color: var(--color-primary);
+}
+
+.section--dark {
+  color: var(--color-surface);
+  background-color: var(--color-primary-dark);
+}
+
+.section--transparent {
+  background-color: transparent;
+}
+
+.section--primary h1,
+.section--primary h2,
+.section--primary h3,
+.section--primary h4,
+.section--primary h5,
+.section--primary h6,
+.section--dark h1,
+.section--dark h2,
+.section--dark h3,
+.section--dark h4,
+.section--dark h5,
+.section--dark h6 {
+  color: inherit;
+}

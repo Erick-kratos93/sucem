@@ -1,0 +1,126 @@
+---
+import { contactConfig } from "../../../config/contact";
+import { contactLabels } from "../../../config/labels";
+import "./ContactForm.styles.css";
+
+interface ContactField {
+  name: string;
+  label: string;
+  type: "text" | "email" | "tel";
+  autocomplete?: string;
+  required: boolean;
+  maxLength: number;
+}
+
+const fields: ContactField[] = [
+  {
+    name: "your-name",
+    label: contactLabels.name,
+    type: "text",
+    autocomplete: "name",
+    required: true,
+    maxLength: 400,
+  },
+  {
+    name: "your-email",
+    label: contactLabels.email,
+    type: "email",
+    autocomplete: "email",
+    required: true,
+    maxLength: 400,
+  },
+  {
+    name: "tel-509",
+    label: contactLabels.phone,
+    type: "tel",
+    required: true,
+    maxLength: 400,
+  },
+  {
+    name: "your-subject",
+    label: contactLabels.subject,
+    type: "text",
+    required: true,
+    maxLength: 400,
+  },
+];
+---
+
+<form
+  class="contact-form"
+  action={`mailto:${contactConfig.email}`}
+  method="post"
+  enctype="text/plain"
+  aria-label="Formulario de contacto"
+  data-contact-form
+>
+  {
+    fields.map((field) => (
+      <p class="contact-form__field">
+        <label for={field.name}>{field.label}</label>
+        <input
+          id={field.name}
+          name={field.name}
+          type={field.type}
+          autocomplete={field.autocomplete}
+          required={field.required}
+          maxlength={field.maxLength}
+          size={40}
+        />
+      </p>
+    ))
+  }
+
+  <p class="contact-form__field">
+    <label for="your-message">{contactLabels.message}</label>
+    <textarea id="your-message" name="your-message" rows={10} maxlength={2000} cols={40}></textarea>
+  </p>
+
+  <p class="contact-form__field">
+    <button class="contact-form__submit" type="submit">
+      {contactLabels.submit}
+    </button>
+  </p>
+
+  <p
+    class="contact-form__status"
+    role="status"
+    aria-live="polite"
+    data-contact-status
+    hidden
+  >
+    {contactLabels.status}
+  </p>
+</form>
+
+<script>
+  import { contactConfig } from "../../../config/contact";
+  import { contactLabels } from "../../../config/labels";
+
+  const form = document.querySelector<HTMLFormElement>("[data-contact-form]");
+
+  if (form) {
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const data = new FormData(form);
+      const getValue = (name: string) => String(data.get(name) ?? "").trim();
+      const subject = getValue("your-subject");
+      const body = [
+        `${contactLabels.name}: ${getValue("your-name")}`,
+        `${contactLabels.email}: ${getValue("your-email")}`,
+        `${contactLabels.phone}: ${getValue("tel-509")}`,
+        `${contactLabels.subject}: ${subject}`,
+        `${contactLabels.message}: ${getValue("your-message")}`,
+      ].join("\n");
+      const mailto = `mailto:${contactConfig.email}?subject=${encodeURIComponent(`${contactConfig.subjectPrefix} - ${subject}`)}&body=${encodeURIComponent(body)}`;
+      const status = form.querySelector<HTMLElement>("[data-contact-status]");
+
+      if (status) {
+        status.hidden = false;
+      }
+
+      window.location.href = mailto;
+    });
+  }
+</script>

@@ -1,0 +1,23 @@
+.site-footer {
+  background-color: var(--color-primary);
+  border-top: 1px solid var(--color-primary);
+  color: var(--color-surface);
+}
+
+.site-footer__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: var(--container-max-wide);
+  min-height: 60px;
+  margin-inline: auto;
+  padding: var(--space-2) var(--container-gutter);
+  text-align: center;
+}
+
+.site-footer__copyright {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-surface);
+}

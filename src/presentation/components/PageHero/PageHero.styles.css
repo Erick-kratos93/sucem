@@ -1,0 +1,115 @@
+.page-hero {
+  position: relative;
+  height: 445px;
+  overflow: hidden;
+  background-color: var(--color-primary-dark);
+}
+
+.page-hero__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.page-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgb(0 0 0 / 75%);
+}
+
+.page-hero__content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 85px;
+  color: var(--color-surface);
+  text-align: center;
+}
+
+.page-hero__title {
+  width: 55%;
+  margin: 0;
+  font-size: 2.8125rem;
+  font-weight: var(--font-weight-semibold);
+  line-height: 22px;
+  color: inherit;
+  text-align: left;
+}
+
+.page-hero__subtitle {
+  width: 75%;
+  margin: 0;
+  font-size: 1.6875rem;
+  font-weight: var(--font-weight-medium);
+  line-height: 31px;
+  white-space: pre-line;
+}
+
+.page-hero--center-large .page-hero__title {
+  width: 100%;
+  font-size: 3.75rem;
+  line-height: 30px;
+  text-align: center;
+}
+
+.page-hero--center-large .page-hero__subtitle {
+  width: 100%;
+  margin-top: var(--space-4);
+  font-size: 2.5rem;
+  line-height: 40px;
+}
+
+.page-hero--center-medium .page-hero__title {
+  width: 100%;
+  font-size: 3.125rem;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.page-hero--center-medium .page-hero__subtitle {
+  width: 100%;
+  margin-top: var(--space-2);
+  font-size: 1.5rem;
+  line-height: 30px;
+}
+
+@media (max-width: 767px) {
+  .page-hero {
+    height: 300px;
+  }
+
+  .page-hero__content {
+    padding-top: 30px;
+  }
+
+  .page-hero__title {
+    width: 85%;
+    font-size: 2rem;
+    line-height: 1.15;
+  }
+
+  .page-hero__subtitle {
+    width: 85%;
+    margin-top: 12px;
+    font-size: 1.125rem;
+    line-height: 1.4;
+  }
+
+  .page-hero--center-large .page-hero__title,
+  .page-hero--center-medium .page-hero__title {
+    width: 85%;
+    font-size: 2rem;
+    line-height: 1.15;
+  }
+
+  .page-hero--center-large .page-hero__subtitle,
+  .page-hero--center-medium .page-hero__subtitle {
+    width: 85%;
+    margin-top: 12px;
+    font-size: 1.125rem;
+    line-height: 1.4;
+  }
+}

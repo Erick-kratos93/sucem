@@ -1,0 +1,24 @@
+---
+import type { SectionProps } from "./Section.types";
+import "./Section.styles.css";
+
+const {
+  as: Tag = "section",
+  background = "surface",
+  spacing = "default",
+  id,
+  class: className,
+} = Astro.props as SectionProps;
+---
+
+<Tag
+  id={id}
+  class:list={[
+    "section",
+    `section--${background}`,
+    spacing !== "default" && `section--${spacing}`,
+    className,
+  ]}
+>
+  <slot />
+</Tag>

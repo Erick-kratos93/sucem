@@ -1,0 +1,13 @@
+{
+  "name": "SUCEM SENASICA",
+  "group": "CDMX",
+  "description": "Temachtiani: Vania Ortiz Agundis Guerrero Jaguar C.N. 1",
+  "logo": "../../assets/images/institutions/sucem-senasica.png",
+  "order": 5,
+  "popup": "vania-ortiz-agundis",
+  "socialLinks": {},
+  "map": {
+    "address": "Av. Insurgentes Sur 489, Hipódromo, Cuauhtémoc, 06100 Ciudad de México, CDMX",
+    "zoom": 17
+  }
+}

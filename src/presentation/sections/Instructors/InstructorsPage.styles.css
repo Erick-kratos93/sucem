@@ -1,0 +1,24 @@
+.instructors-intro {
+  padding-top: var(--space-4);
+}
+
+.instructors-intro__content {
+  text-align: center;
+}
+
+.instructors-intro__image {
+  width: 150px;
+  height: auto;
+  margin: 0 auto var(--space-2);
+}
+
+.instructors-intro__title {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  text-align: center;
+}
+
+.instructors-content {
+  padding-block: var(--space-4) var(--space-9);
+}

@@ -1,0 +1,17 @@
+---
+import { getCollection, getEntry } from "astro:content";
+import BaseLayout from "../presentation/layouts/BaseLayout.astro";
+import InstructorsPage from "../presentation/sections/Instructors/InstructorsPage.astro";
+
+const page = await getEntry("pages", "profesores-temachtianimej");
+
+if (!page) {
+  throw new Error("No se encontró el contenido de Profesores de SUCEM.");
+}
+
+const instructors = await getCollection("instructors");
+---
+
+<BaseLayout title={page.data.title} description={page.data.description}>
+  <InstructorsPage page={page} instructors={instructors} />
+</BaseLayout>

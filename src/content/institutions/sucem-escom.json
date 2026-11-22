@@ -1,0 +1,13 @@
+{
+  "name": "SUCEM ESCOM",
+  "group": "CDMX",
+  "description": "Temachtiani: Joel Brandon Jiménez Hernández Guerrero Águila C.N. 4",
+  "logo": "../../assets/images/institutions/escom.jpg",
+  "order": 1,
+  "popup": "joel-brandon-jimenez-hernandez",
+  "socialLinks": {},
+  "map": {
+    "address": "ESCOM IPN, Unidad Profesional Adolfo López Mateos, Av. Juan de Dios Bátiz, Nueva Industrial Vallejo, Gustavo A. Madero, 07320 Ciudad de México, CDMX",
+    "zoom": 17
+  }
+}

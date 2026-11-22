@@ -1,0 +1,16 @@
+{
+  "name": "SUCEM EGAMM San Pedro Atzompa (ExFactory Gym)",
+  "group": "Estado de México",
+  "description": "Temachtiani: Erick Pablo Alfonso Guerrero Jaguar C.N. 1",
+  "logo": "../../assets/images/institutions/sucem-egamm-san-pedro-atzompa.jpg",
+  "order": 10,
+  "popup": "erick-pablo-alfonso",
+  "socialLinks": {
+    "whatsapp": "https://wa.link/kgpxg7",
+    "facebook": "https://www.facebook.com/profile.php?id=100087944238383&mibextid=ZbWKwL"
+  },
+  "map": {
+    "address": "Av Hidalgo Mz. 05 Lt 15, San Pedro Atzompa, 55771 Méx.",
+    "zoom": 17
+  }
+}

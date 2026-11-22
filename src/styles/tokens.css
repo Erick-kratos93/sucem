@@ -1,0 +1,64 @@
+:root {
+  /* Color */
+  --color-primary: #008639;
+  --color-primary-hover: #007331;
+  --color-primary-dark: #015e29;
+  --color-accent: #ff622a;
+  --color-text: #000000;
+  --color-text-muted: #666666;
+  --color-text-soft: #858e9a;
+  --color-nav: #334155;
+  --color-surface: #ffffff;
+  --color-surface-alt: #fafafa;
+  --color-border: #eeeeee;
+  --color-overlay: rgb(0 0 0 / 70%);
+  --color-link: #046bd2;
+  --color-link-hover: #045cb4;
+  --color-border-header: #eaeaea;
+
+  /* Typography */
+  --font-family-base: "Poppins", sans-serif;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-size-nav: 0.9375rem;
+  --font-size-sm: 1rem;
+  --font-size-base: 1.125rem;
+  --font-size-md: 1.25rem;
+  --font-size-lg: 1.5rem;
+  --font-size-xl: 1.875rem;
+  --font-size-2xl: 2.1875rem;
+  --font-size-3xl: 2.5rem;
+  --font-size-4xl: 2.75rem;
+  --font-size-5xl: 2.8125rem;
+  --line-height-tight: 1.2;
+  --line-height-heading: 1.3;
+  --line-height-body: 1.65;
+
+  /* Layout */
+  --container-max: 1140px;
+  --container-max-wide: 1200px;
+  --container-max-header: 1240px;
+  --container-gutter: 1.25rem;
+  --breakpoint-tablet: 1024px;
+  --breakpoint-mobile: 767px;
+
+  /* Spacing */
+  --space-px: 1px;
+  --space-1: 0.3125rem;
+  --space-2: 0.625rem;
+  --space-3: 0.9375rem;
+  --space-4: 1.25rem;
+  --space-5: 1.875rem;
+  --space-6: 2.1875rem;
+  --space-7: 2.5rem;
+  --space-8: 3.125rem;
+  --space-9: 5.625rem;
+
+  /* Shape and motion */
+  --radius-none: 0;
+  --radius-pill: 100px;
+  --shadow-overlay: 2px 8px 23px 3px rgb(0 0 0 / 20%);
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.5s ease;
+}

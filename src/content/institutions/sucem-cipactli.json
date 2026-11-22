@@ -1,0 +1,13 @@
+{
+  "name": "SUCEM Cipactli",
+  "group": "CDMX",
+  "description": "Temachtiani: Heriberto Ramos Olguin Guerrero Jaguar C.N. 1",
+  "logo": "../../assets/images/institutions/sucem-cipactli.png",
+  "order": 4,
+  "popup": "heriberto-ramos-olguin",
+  "socialLinks": {},
+  "map": {
+    "address": "Calle Nte 86, Gertrudis Sánchez II Secc, Gustavo A. Madero, 07839 Ciudad de México, CDMX",
+    "zoom": 17
+  }
+}

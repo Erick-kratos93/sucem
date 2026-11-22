@@ -1,0 +1,44 @@
+---
+import { Image } from "astro:assets";
+import Container from "../../components/Container/Container.astro";
+import PageHero from "../../components/PageHero/PageHero.astro";
+import ContactForm from "./ContactForm.astro";
+import type { ContactPageProps } from "./ContactPage.types";
+import "./ContactPage.styles.css";
+
+const { page } = Astro.props as ContactPageProps;
+const { heroTitle, heroSubtitle, heroImage, intro } = page.data;
+---
+
+<PageHero
+  title={heroTitle}
+  subtitle={heroSubtitle}
+  image={heroImage}
+  variant="center-medium"
+/>
+
+<section class="contact-content">
+  <Container>
+    <div class="contact-content__grid">
+      {
+        intro && (
+          <div class="contact-content__intro">
+            <h2 class="contact-content__title">{intro.title}</h2>
+            <Image
+              class="contact-content__logo"
+              src={intro.image}
+              alt=""
+              width={300}
+              height={135}
+              loading="lazy"
+            />
+          </div>
+        )
+      }
+
+      <div class="contact-content__form">
+        <ContactForm />
+      </div>
+    </div>
+  </Container>
+</section>

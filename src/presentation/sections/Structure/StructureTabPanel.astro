@@ -1,0 +1,71 @@
+---
+import { Image } from "astro:assets";
+import { render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import Prose from "../../components/Prose/Prose.astro";
+
+interface StructureTabPanelProps {
+  tab: CollectionEntry<"structureTabs">;
+}
+
+const { tab } = Astro.props as StructureTabPanelProps;
+const { Content } = await render(tab);
+const { align, gallery, sections } = tab.data;
+const hasBody = Boolean(tab.body?.trim());
+---
+
+{gallery && gallery.length > 0 && (
+  <div class="structure-tab__gallery">
+    {gallery.map((image, index) => (
+      <div class="structure-tab__gallery-item">
+        <Image
+          src={image}
+          alt={`Aval ${index + 1}`}
+          widths={[150, 300]}
+          sizes="150px"
+          loading="lazy"
+        />
+      </div>
+    ))}
+  </div>
+)}
+
+{hasBody && (
+  <Prose align={align} class="structure-tab__prose">
+    <Content />
+  </Prose>
+)}
+
+{sections?.map((section) => (
+  <section class="structure-tab__section">
+    <h3 class="structure-tab__section-title">{section.title}</h3>
+
+    <Image
+      class="structure-tab__section-image"
+      src={section.image}
+      alt=""
+      widths={[300, 600]}
+      sizes="300px"
+      loading="lazy"
+    />
+
+    <table class="structure-tab__table">
+      <thead>
+        <tr>
+          {section.rows[0].map((cell) => (
+            <th scope="col">{cell}</th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {section.rows.slice(1).map((row) => (
+          <tr>
+            {row.map((cell) => (
+              <td set:html={cell} />
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </section>
+))}
